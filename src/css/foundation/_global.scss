@@ -1,0 +1,23 @@
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  overflow-y: scroll;
+  font-family: $font-jp;
+}
+input, button, select {
+  appearance: none;
+}
+select::-ms-expand {
+  display: none;
+}
+::selection {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+}
+input::selection,
+textarea::selection {
+  color: $color-text-black;
+  background: rgba(0, 0, 0, 0.2);
+}
