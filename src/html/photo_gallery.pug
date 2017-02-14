@@ -1,0 +1,40 @@
+extends ./_layout/_page.pug
+
+block vars
+  -
+    var page = pages.photoGallery;
+
+block content
+  .p-photo-gallery#photo-gallery
+    .p-photo-gallery__image
+      .p-photo-gallery__image-inner(
+        :class="{ 'is-animate-prev': isAnimatePrev, 'is-animate-next': isAnimateNext }",
+        :style="{ transform: getMoveX }"
+        @mousedown="startDrag",
+        @mousemove="drag",
+        @mouseup="finishDrag",
+        @mouseout="finishDrag",
+        @touchstart="startDrag",
+        @touchmove="drag",
+        @touchend="finishDrag",
+        @transitionend="setCurrentNum"
+      )
+        img(:src="getPrevItemSrc", alt="").p-photo-gallery__image-item.p-photo-gallery__image-item--prev
+        img(:src="getCurrentItemSrc", alt="").p-photo-gallery__image-item.p-photo-gallery__image-item--current
+        img(:src="getNextItemSrc", alt="").p-photo-gallery__image-item.p-photo-gallery__image-item--next
+    .p-photo-gallery__adjacent.p-photo-gallery__adjacent--prev(
+      @click = 'gotoPrev'
+    )
+      .p-photo-gallery__adjacent-line.p-photo-gallery__adjacent-line--prev1
+      .p-photo-gallery__adjacent-line.p-photo-gallery__adjacent-line--prev2
+    .p-photo-gallery__adjacent.p-photo-gallery__adjacent--next(
+      @click = 'gotoNext'
+    )
+      .p-photo-gallery__adjacent-line.p-photo-gallery__adjacent-line--next1
+      .p-photo-gallery__adjacent-line.p-photo-gallery__adjacent-line--next2
+    .p-photo-gallery__pager
+    .p-photo-gallery__contents
+      .p-photo-gallery__contents-head
+        |{{ getTitle }}
+      .p-photo-gallery__contents-text
+        |{{ getText }}

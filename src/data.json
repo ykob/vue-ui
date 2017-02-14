@@ -1,16 +1,24 @@
 {
   "meta": {
-    "domain": "http://www.tplh.net",
-    "websiteName": "website name",
-    "keywords": "keyword base"
+    "domain": "http://ykob.github.io/vue-ui",
+    "websiteName": "vue-ui",
+    "keywords": ""
   },
   "pages": {
     "index": {
-      "title": "page title",
-      "keywords": "keyword1, keyword2",
-      "description": "page description",
+      "title": "",
+      "keywords": "",
+      "description": "",
       "path": "/",
-      "ogpDescription": "page ogp description",
+      "ogpDescription": "",
+      "ogpImg": "ogp.jpg"
+    },
+    "index": {
+      "title": "photo gallery",
+      "keywords": "",
+      "description": "",
+      "path": "/photo_gallery.html",
+      "ogpDescription": "",
       "ogpImg": "ogp.jpg"
     }
   }
