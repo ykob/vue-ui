@@ -88,13 +88,15 @@ export default function(items) {
       setCurrentNum: function() {
         if (this.isAnimatePrev) {
           this.currentNum = this.prevNum;
-          this.isAnimatePrev = false;
         } else if (this.isAnimateNext) {
           this.currentNum = this.nextNum;
-          this.isAnimateNext = false;
         }
-        this.prevNum = (this.currentNum == 0) ? this.items.length - 1 : this.currentNum - 1;
-        this.nextNum = (this.currentNum == this.items.length - 1) ? 0 : this.currentNum + 1;
+        setTimeout(() => {
+          this.isAnimatePrev = false;
+          this.isAnimateNext = false;
+          this.prevNum = (this.currentNum == 0) ? this.items.length - 1 : this.currentNum - 1;
+          this.nextNum = (this.currentNum == this.items.length - 1) ? 0 : this.currentNum + 1;
+        }, 200);
       },
       judgeCurrentNum: function(index) {
         return (this.currentNum == index) ? true : false;
