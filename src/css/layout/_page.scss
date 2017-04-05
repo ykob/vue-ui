@@ -1,2 +1,13 @@
 .l-page {
+  max-width: 1024px;
+  margin: 0 auto;
+  @include l-pc-all {
+    padding: 50px;
+  }
+  @include l-tablet {
+    padding: 50px;
+  }
+  @include l-mobile {
+    padding: 20px;
+  }
 }
