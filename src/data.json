@@ -20,6 +20,14 @@
       "path": "/photo_gallery.html",
       "ogpDescription": "",
       "ogpImg": "ogp.jpg"
+    },
+    "videoPlayer": {
+      "title": "video player",
+      "keywords": "",
+      "description": "",
+      "path": "/video_player.html",
+      "ogpDescription": "",
+      "ogpImg": "ogp.jpg"
     }
   }
 }
