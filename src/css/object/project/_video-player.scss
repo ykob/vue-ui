@@ -1,0 +1,47 @@
+.p-video-player {
+  &__media {
+    width: 100%;
+    display: block;
+  }
+  &__seeker {
+    &-wrap {
+      cursor: pointer;
+      position: relative;
+      margin-bottom: 10px;
+      padding: 10px 0;
+    }
+    &-current, &-back {
+      height: 3px;
+      position: absolute;
+      top: 10px; right: 0; left: 0;
+    }
+    &-current {
+      z-index: 2;
+      background-color: #111;
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    &-back {
+      background-color: #ddd;
+    }
+  }
+  &__control-panel {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__btn {
+    width: 5em;
+    margin-right: 2px;
+  }
+  &__time {
+    &-wrap {
+      margin-left: auto;
+    }
+    &-current {
+      margin-right: 0.25em;
+    }
+    &-all {
+      margin-left: 0.25em;
+    }
+  }
+}
