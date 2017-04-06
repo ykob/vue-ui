@@ -4,9 +4,19 @@ export default function(id, videoId) {
     data: {
       media: null,
       time: 0,
-      duration: 0
+      duration: 0,
     },
     mounted: function() {
+      this.media = document.getElementById(videoId);
+      this.media.addEventListener('loadedmetadata', () => {
+        this.duration = this.media.duration;
+        this.loop();
+      });
+    },
+    computed: {
+      getProgressRate: function() {
+        return this.time / this.duration;
+      }
     },
     methods: {
       play: function(event) {
@@ -19,6 +29,12 @@ export default function(id, videoId) {
         this.media.currentTime = 0;
         this.media.pause();
       },
+      loop: function() {
+        this.time = this.media.currentTime;
+        requestAnimationFrame(() => {
+          this.loop();
+        });
+      }
     }
   });
 }

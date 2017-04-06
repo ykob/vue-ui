@@ -15,7 +15,9 @@ block content
         src = 'http://www.tplh.net/file/sample.mp4'
         )
     .p-video-player__seeker-wrap
-      .p-video-player__seeker-current
+      .p-video-player__seeker-current(
+        :style = '{ transform: "scaleX(" + getProgressRate + ")" }'
+        )
       .p-video-player__seeker-back
     .p-video-player__control-panel
       button.p-video-player__btn(
@@ -32,7 +34,7 @@ block content
         |stop
       .p-video-player__time-wrap
         span.p-video-player__time-current
-          |0:00
+          |{{ time }}
         |/
         span.p-video-player__time-all
-          |0:00
+          |{{ duration }}
