@@ -18,11 +18,17 @@ block content
       .p-video-player__seeker-current
       .p-video-player__seeker-back
     .p-video-player__control-panel
-      button.p-video-player__btn
+      button.p-video-player__btn(
+        @click = 'play'
+        )
         |play
-      button.p-video-player__btn
+      button.p-video-player__btn(
+        @click = 'pause'
+        )
         |pause
-      button.p-video-player__btn
+      button.p-video-player__btn(
+        @click = 'stop'
+        )
         |stop
       .p-video-player__time-wrap
         span.p-video-player__time-current
