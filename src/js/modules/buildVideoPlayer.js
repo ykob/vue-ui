@@ -3,15 +3,20 @@ export default function(id, videoId) {
     el: `#${id}`,
     data: {
       media: null,
+      seekbar: null,
+      seekbarOffsetX: 0,
       time: 0,
       duration: 0,
+      isGrabbingSeekbar: false,
     },
     mounted: function() {
-      this.media = document.getElementById(videoId);
+      this.media = this.$el.querySelector('.p-video-player__media');
       this.media.addEventListener('loadedmetadata', () => {
         this.duration = this.media.duration;
         this.loop();
       });
+      this.seekbar = this.$el.querySelector('.p-video-player__seekbar-wrap');
+      this.seekbarWidth = this.seekbar.clientWidth;
     },
     computed: {
       getProgressRate: function() {
@@ -40,6 +45,18 @@ export default function(id, videoId) {
         requestAnimationFrame(() => {
           this.loop();
         });
+      },
+      grabSeekbar: function(event) {
+        this.isGrabbingSeekbar = true;
+        this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
+        this.media.pause();
+      },
+      moveSeekbar: function(event) {
+        if (!this.isGrabbingSeekbar) return;
+        this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
+      },
+      releaseSeekbar: function(event) {
+        this.isGrabbingSeekbar = false;
       },
       convertSecondsToTime: function(time) {
         let seconds = Math.floor(time % 60);

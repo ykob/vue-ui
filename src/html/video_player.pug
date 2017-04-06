@@ -8,17 +8,24 @@ block content
   .p-video-player(
     id = 'video-player'
     )
-    video.p-video-player__media(
-      id = 'video-player-media'
-      )
+    video.p-video-player__media
       source(
         src = 'http://www.tplh.net/file/sample.mp4'
         )
-    .p-video-player__seeker-wrap
-      .p-video-player__seeker-current(
+    .p-video-player__seekbar-wrap(
+      id = 'video-player-media',
+      @mousedown = 'grabSeekbar',
+      @mousemove = 'moveSeekbar',
+      @mouseup = 'releaseSeekbar',
+      @mouseleave = 'releaseSeekbar',
+      @touchstart = 'grabSeekbar',
+      @touchmove = 'moveSeekbar',
+      @touchend = 'releaseSeekbar',
+      )
+      .p-video-player__seekbar-current(
         :style = '{ transform: "scaleX(" + getProgressRate + ")" }'
         )
-      .p-video-player__seeker-back
+      .p-video-player__seekbar-back
     .p-video-player__control-panel
       button.p-video-player__btn(
         @click = 'play'
