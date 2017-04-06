@@ -5,3 +5,12 @@ block vars
     var page = data.pages.videoPlayer;
 
 block content
+  .p-video-player(
+    id = 'video-player'
+    )
+    video.p-video-player__media(
+      id = 'video-player-media'
+      )
+      source(
+        src = 'http://www.tplh.net/file/sample.mp4'
+        )
