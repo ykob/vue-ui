@@ -16,6 +16,12 @@ export default function(id, videoId) {
     computed: {
       getProgressRate: function() {
         return this.time / this.duration;
+      },
+      getCurrentTime: function() {
+        return this.convertSecondsToTime(this.time);
+      },
+      getDuration: function() {
+        return this.convertSecondsToTime(this.duration);
       }
     },
     methods: {
@@ -34,6 +40,12 @@ export default function(id, videoId) {
         requestAnimationFrame(() => {
           this.loop();
         });
+      },
+      convertSecondsToTime: function(time) {
+        let seconds = Math.floor(time % 60);
+        if (seconds < 10) seconds = '0' + seconds;
+        let minutes = Math.floor(time / 60 % 60);
+        return `${minutes}:${seconds}`
       }
     }
   });
