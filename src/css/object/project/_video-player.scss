@@ -28,6 +28,7 @@
   &__control-panel {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
   }
   &__btn {
     width: 5em;
@@ -35,7 +36,7 @@
   }
   &__time {
     &-wrap {
-      margin-left: auto;
+      margin-left: 1em;
     }
     &-current {
       margin-right: 0.25em;
