@@ -31,7 +31,6 @@ export default function(id, videoId) {
       });
       this.media.addEventListener('loadedmetadata', () => {
         this.duration = this.media.duration;
-        this.loop();
       });
       this.media.addEventListener('ended', () => {
         this.media.currentTime = 0;
@@ -53,6 +52,7 @@ export default function(id, videoId) {
       play: function() {
         this.media.play();
         this.isPlaying = true;
+        this.loop();
       },
       pause: function() {
         this.media.pause();
@@ -71,6 +71,7 @@ export default function(id, videoId) {
       },
       loop: function() {
         this.time = this.media.currentTime;
+        if (!this.isPlaying) return;
         requestAnimationFrame(() => {
           this.loop();
         });
@@ -78,13 +79,13 @@ export default function(id, videoId) {
       grabSeekbar: function(event) {
         event.preventDefault();
         this.isGrabbingSeekbar = true;
-        this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
+        this.time = this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
         this.media.pause();
       },
       moveSeekbar: function(event) {
         event.preventDefault();
         if (!this.isGrabbingSeekbar) return;
-        this.media.currentTime =
+        this.time = this.media.currentTime =
           (event.clientX - this.seekbarOffsetX - window.pageXOffset)
           / this.seekbarWidth * this.duration;
       },
