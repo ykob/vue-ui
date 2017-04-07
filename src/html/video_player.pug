@@ -25,13 +25,9 @@ block content
       .p-video-player__seekbar-back
     .p-video-player__control-panel
       button.p-video-player__btn(
-        @click = 'play'
+        @click = 'playOrPause',
         )
-        |play
-      button.p-video-player__btn(
-        @click = 'pause'
-        )
-        |pause
+        |{{ isPlaying ? 'pause' : 'play' }}
       button.p-video-player__btn(
         @click = 'stop'
         )

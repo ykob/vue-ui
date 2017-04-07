@@ -8,23 +8,31 @@ export default function(id, videoId) {
       seekbarOffsetX: 0,
       time: 0,
       duration: 0,
+      isPlaying: false,
       isGrabbingSeekbar: false,
       isPlayedBeforeGrabSeeker: false
     },
     mounted: function() {
+      // init
       this.media = this.$el.querySelector('.p-video-player__media');
-      this.media.addEventListener('loadedmetadata', () => {
-        this.duration = this.media.duration;
-        this.loop();
-      });
       this.seekbar = this.$el.querySelector('.p-video-player__seekbar-wrap');
       this.seekbarWidth = this.seekbar.clientWidth;
       this.seekbarOffsetX = this.seekbar.getBoundingClientRect().left;
+
+      // addEventListener
       document.addEventListener('mousemove', (event) => {
         this.moveSeekbar(event);
       });
       document.addEventListener('mouseup', (event) => {
         this.releaseSeekbar(event);
+      });
+      this.media.addEventListener('loadedmetadata', () => {
+        this.duration = this.media.duration;
+        this.loop();
+      });
+      this.media.addEventListener('ended', () => {
+        this.media.currentTime = 0;
+        this.isPlaying = false;
       });
     },
     computed: {
@@ -36,18 +44,28 @@ export default function(id, videoId) {
       },
       getDuration: function() {
         return this.convertSecondsToTime(this.duration);
-      }
+      },
     },
     methods: {
-      play: function(event) {
+      play: function() {
         this.media.play();
+        this.isPlaying = true;
       },
-      pause: function(event) {
+      pause: function() {
         this.media.pause();
+        this.isPlaying = false;
       },
-      stop: function(event) {
+      playOrPause: function() {
+        if (this.isPlaying) {
+          this.pause();
+        } else {
+          this.play();
+        }
+      },
+      stop: function() {
         this.media.currentTime = 0;
         this.media.pause();
+        this.isPlaying = false;
       },
       loop: function() {
         this.time = this.media.currentTime;
@@ -59,7 +77,7 @@ export default function(id, videoId) {
         event.preventDefault();
         this.isGrabbingSeekbar = true;
         this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
-        if (!this.media.paused) this.isPlayedBeforeGrabSeeker = true;
+        if (this.isPlaying) this.isPlayedBeforeGrabSeeker = true;
         this.media.pause();
       },
       moveSeekbar: function(event) {
