@@ -4,6 +4,7 @@ export default function(id, videoId) {
     data: {
       media: null,
       seekbar: null,
+      seekbarWidth: 0,
       seekbarOffsetX: 0,
       time: 0,
       duration: 0,
@@ -17,6 +18,7 @@ export default function(id, videoId) {
       });
       this.seekbar = this.$el.querySelector('.p-video-player__seekbar-wrap');
       this.seekbarWidth = this.seekbar.clientWidth;
+      this.seekbarOffsetX = this.seekbar.getBoundingClientRect().left;
       document.addEventListener('mousemove', (event) => {
         this.moveSeekbar(event);
       });
@@ -53,15 +55,20 @@ export default function(id, videoId) {
         });
       },
       grabSeekbar: function(event) {
+        event.preventDefault();
         this.isGrabbingSeekbar = true;
         this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
         this.media.pause();
       },
       moveSeekbar: function(event) {
+        event.preventDefault();
         if (!this.isGrabbingSeekbar) return;
-        this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
+        this.media.currentTime =
+          (event.clientX - this.seekbarOffsetX - window.pageXOffset)
+          / this.seekbarWidth * this.duration;
       },
       releaseSeekbar: function(event) {
+        event.preventDefault();
         this.isGrabbingSeekbar = false;
       },
       convertSecondsToTime: function(time) {
