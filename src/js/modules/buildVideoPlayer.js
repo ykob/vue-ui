@@ -17,13 +17,11 @@ export default function(id, videoId) {
       // init
       this.media = this.$el.querySelector('.p-video-player__media');
       this.seekbar = this.$el.querySelector('.p-video-player__seekbar-wrap');
-      this.seekbarWidth = this.seekbar.clientWidth;
-      this.seekbarOffsetX = this.seekbar.getBoundingClientRect().left;
+      this.reLayoutSeekbar();
 
       // addEventListener
       window.addEventListener('resize', debounce(() => {
-        this.seekbarWidth = this.seekbar.clientWidth;
-        this.seekbarOffsetX = this.seekbar.getBoundingClientRect().left;
+        this.reLayoutSeekbar();
       }), 100);
       document.addEventListener('mousemove', (event) => {
         this.moveSeekbar(event);
@@ -97,12 +95,16 @@ export default function(id, videoId) {
           this.media.play();
         }
       },
+      reLayoutSeekbar: function() {
+        this.seekbarWidth = this.seekbar.clientWidth;
+        this.seekbarOffsetX = this.seekbar.getBoundingClientRect().left;
+      },
       convertSecondsToTime: function(time) {
         let seconds = Math.floor(time % 60);
         if (seconds < 10) seconds = '0' + seconds;
         let minutes = Math.floor(time / 60 % 60);
         return `${minutes}:${seconds}`
-      }
+      },
     }
   });
 }
