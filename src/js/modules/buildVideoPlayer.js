@@ -9,6 +9,7 @@ export default function(id, videoId) {
       time: 0,
       duration: 0,
       isGrabbingSeekbar: false,
+      isPlayedBeforeGrabSeeker: false
     },
     mounted: function() {
       this.media = this.$el.querySelector('.p-video-player__media');
@@ -58,6 +59,7 @@ export default function(id, videoId) {
         event.preventDefault();
         this.isGrabbingSeekbar = true;
         this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
+        if (!this.media.paused) this.isPlayedBeforeGrabSeeker = true;
         this.media.pause();
       },
       moveSeekbar: function(event) {
@@ -70,6 +72,10 @@ export default function(id, videoId) {
       releaseSeekbar: function(event) {
         event.preventDefault();
         this.isGrabbingSeekbar = false;
+        if (this.isPlayedBeforeGrabSeeker) {
+          this.media.play();
+          this.isPlayedBeforeGrabSeeker = false;
+        }
       },
       convertSecondsToTime: function(time) {
         let seconds = Math.floor(time % 60);
