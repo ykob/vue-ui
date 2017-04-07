@@ -1,3 +1,5 @@
+import debounce from 'js-util/debounce';
+
 export default function(id, videoId) {
   return new Vue({
     el: `#${id}`,
@@ -19,6 +21,10 @@ export default function(id, videoId) {
       this.seekbarOffsetX = this.seekbar.getBoundingClientRect().left;
 
       // addEventListener
+      window.addEventListener('resize', debounce(() => {
+        this.seekbarWidth = this.seekbar.clientWidth;
+        this.seekbarOffsetX = this.seekbar.getBoundingClientRect().left;
+      }), 100);
       document.addEventListener('mousemove', (event) => {
         this.moveSeekbar(event);
       });
@@ -63,8 +69,7 @@ export default function(id, videoId) {
       },
       stop: function() {
         this.media.currentTime = 0;
-        this.media.pause();
-        this.isPlaying = false;
+        this.pause();
       },
       loop: function() {
         this.time = this.media.currentTime;
