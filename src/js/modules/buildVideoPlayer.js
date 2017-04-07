@@ -1,6 +1,6 @@
 import debounce from 'js-util/debounce';
 
-export default function(id, videoId) {
+export default function(id) {
   return new Vue({
     el: `#${id}`,
     data: {
