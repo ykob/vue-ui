@@ -10,7 +10,6 @@ export default function(id, videoId) {
       duration: 0,
       isPlaying: false,
       isGrabbingSeekbar: false,
-      isPlayedBeforeGrabSeeker: false
     },
     mounted: function() {
       // init
@@ -77,7 +76,6 @@ export default function(id, videoId) {
         event.preventDefault();
         this.isGrabbingSeekbar = true;
         this.media.currentTime = event.layerX / this.seekbarWidth * this.duration;
-        if (this.isPlaying) this.isPlayedBeforeGrabSeeker = true;
         this.media.pause();
       },
       moveSeekbar: function(event) {
@@ -90,9 +88,8 @@ export default function(id, videoId) {
       releaseSeekbar: function(event) {
         event.preventDefault();
         this.isGrabbingSeekbar = false;
-        if (this.isPlayedBeforeGrabSeeker) {
+        if (this.isPlaying) {
           this.media.play();
-          this.isPlayedBeforeGrabSeeker = false;
         }
       },
       convertSecondsToTime: function(time) {
