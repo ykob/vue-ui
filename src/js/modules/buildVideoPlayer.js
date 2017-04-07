@@ -17,6 +17,12 @@ export default function(id, videoId) {
       });
       this.seekbar = this.$el.querySelector('.p-video-player__seekbar-wrap');
       this.seekbarWidth = this.seekbar.clientWidth;
+      document.addEventListener('mousemove', (event) => {
+        this.moveSeekbar(event);
+      });
+      document.addEventListener('mouseup', (event) => {
+        this.releaseSeekbar(event);
+      });
     },
     computed: {
       getProgressRate: function() {
