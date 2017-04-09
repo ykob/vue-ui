@@ -10,6 +10,7 @@ export default function(id) {
       seekbarOffsetX: 0,
       time: 0,
       duration: 0,
+      volume: 0,
       isPlaying: false,
       isGrabbingSeekbar: false,
     },
@@ -36,6 +37,11 @@ export default function(id) {
         this.media.currentTime = 0;
         this.isPlaying = false;
       });
+    },
+    watch: {
+      volume: function() {
+        this.media.volume = this.volume;
+      }
     },
     computed: {
       getProgressRate: function() {
