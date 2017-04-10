@@ -8,7 +8,7 @@
       cursor: pointer;
       position: relative;
       margin-bottom: 10px;
-      padding: 10px 0;
+      padding: 10px 0 13px;
     }
     &-current, &-back {
       height: 3px;
@@ -33,18 +33,39 @@
   &__btn {
     width: 5em;
     margin-right: 2px;
+    @include fontSize(12);
+    font-weight: 700;
+    text-transform: uppercase;
   }
   &__volume {
     display: flex;
+    align-items: center;
     margin-left: 1em;
     &-label {
       cursor: pointer;
+      line-height: 1;
+      margin-bottom: -2px;
+      @include fontSize(12);
+      font-weight: 700;
+      text-transform: uppercase;
     }
     &-bar {
       width: 50px;
       cursor: pointer;
       position: relative;
-      margin-left: 0.5em;
+      margin-left: 1em;
+      padding: 10px 0 13px;
+      &-disc {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: 50%; left: 0;
+        z-index: 3;
+        margin-top: -4px;
+        margin-left: -5px;
+        border-radius: 50%;
+        background-color: #111;
+      }
       &-current, &-back {
         height: 3px;
         position: absolute;
@@ -64,6 +85,8 @@
   &__time {
     &-wrap {
       margin-left: 1em;
+      @include fontSize(14);
+      font-weight: 700;
     }
     &-current {
       margin-right: 0.25em;
