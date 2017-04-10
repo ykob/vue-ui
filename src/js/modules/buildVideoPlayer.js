@@ -1,4 +1,5 @@
 import debounce from 'js-util/debounce';
+import MathEx from 'js-util/MathEx';
 
 export default function(id) {
   return new Vue({
@@ -10,15 +11,21 @@ export default function(id) {
       seekbarOffsetX: 0,
       time: 0,
       duration: 0,
+      volumebar: null,
+      volumebarWidth: 0,
+      volumebarOffsetX: 0,
       volume: 0,
       isPlaying: false,
       isGrabbingSeekbar: false,
+      isGrabbingVolumebar: false,
     },
     mounted: function() {
       // init
       this.media = this.$el.querySelector('.p-video-player__media');
       this.seekbar = this.$el.querySelector('.p-video-player__seekbar-wrap');
+      this.volumebar = this.$el.querySelector('.p-video-player__volume-bar');
       this.reLayoutSeekbar();
+      this.reLayoutVolumebar();
 
       // addEventListener
       window.addEventListener('resize', debounce(() => {
@@ -26,12 +33,15 @@ export default function(id) {
       }), 100);
       document.addEventListener('mousemove', (event) => {
         this.moveSeekbar(event);
+        this.moveVolumebar(event);
       });
       document.addEventListener('mouseup', (event) => {
         this.releaseSeekbar(event);
+        this.releaseVolumebar(event);
       });
       this.media.addEventListener('loadedmetadata', () => {
         this.duration = this.media.duration;
+        this.volume = this.media.volume;
       });
       this.media.addEventListener('ended', () => {
         this.media.currentTime = 0;
@@ -106,6 +116,31 @@ export default function(id) {
       reLayoutSeekbar: function() {
         this.seekbarWidth = this.seekbar.clientWidth;
         this.seekbarOffsetX = this.seekbar.getBoundingClientRect().left;
+      },
+      mute: function() {
+        this.volume = 0;
+      },
+      grabVolumebar: function(event) {
+        event.preventDefault();
+        this.isGrabbingVolumebar = true;
+        this.volume = MathEx.clamp(
+          (event.clientX - this.volumebarOffsetX - window.pageXOffset) / this.volumebarWidth,
+          0, 1);
+      },
+      moveVolumebar: function(event) {
+        event.preventDefault();
+        if (!this.isGrabbingVolumebar) return;
+        this.volume = MathEx.clamp(
+          (event.clientX - this.volumebarOffsetX - window.pageXOffset) / this.volumebarWidth,
+          0, 1);
+      },
+      releaseVolumebar: function(event) {
+        event.preventDefault();
+        this.isGrabbingVolumebar = false;
+      },
+      reLayoutVolumebar: function() {
+        this.volumebarWidth = this.volumebar.clientWidth;
+        this.volumebarOffsetX = this.volumebar.getBoundingClientRect().left;
       },
       convertSecondsToTime: function(time) {
         let seconds = Math.floor(time % 60);

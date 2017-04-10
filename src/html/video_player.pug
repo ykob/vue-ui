@@ -13,7 +13,6 @@ block content
         src = 'http://www.tplh.net/file/sample.mp4'
         )
     .p-video-player__seekbar-wrap(
-      id = 'video-player-media',
       @mousedown = 'grabSeekbar',
       @touchstart = 'grabSeekbar',
       @touchmove = 'moveSeekbar',
@@ -35,9 +34,18 @@ block content
       .p-video-player__volume
         .p-video-player__volume-label
           |Volume
-        .p-video-player__volume-bar
-          .p-video-player__volume-bar-disc
-          .p-video-player__volume-bar-current
+        .p-video-player__volume-bar(
+          @mousedown = 'grabVolumebar',
+          @touchstart = 'grabVolumebar',
+          @touchmove = 'moveVolumebar',
+          @touchend = 'releaseVolumebar',
+          )
+          .p-video-player__volume-bar-disc(
+            :style = '{ transform: "translateX(" + volume * 50 + "px)" }'
+            )
+          .p-video-player__volume-bar-current(
+            :style = '{ transform: "scaleX(" + volume + ")" }'
+            )
           .p-video-player__volume-bar-back
       .p-video-player__time-wrap
         span.p-video-player__time-current
