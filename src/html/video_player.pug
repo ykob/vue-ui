@@ -32,6 +32,12 @@ block content
         @click = 'stop'
         )
         |stop
+      .p-video-player__volume
+        .p-video-player__volume-label
+          |Volume
+        .p-video-player__volume-bar
+          .p-video-player__volume-bar-current
+          .p-video-player__volume-bar-back
       .p-video-player__time-wrap
         span.p-video-player__time-current
           |{{ getCurrentTime }}

@@ -34,6 +34,33 @@
     width: 5em;
     margin-right: 2px;
   }
+  &__volume {
+    display: flex;
+    margin-left: 1em;
+    &-label {
+      cursor: pointer;
+    }
+    &-bar {
+      width: 50px;
+      cursor: pointer;
+      position: relative;
+      margin-left: 0.5em;
+      &-current, &-back {
+        height: 3px;
+        position: absolute;
+        top: 10px; right: 0; left: 0;
+      }
+      &-current {
+        z-index: 2;
+        background-color: #111;
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+      &-back {
+        background-color: #ddd;
+      }
+    }
+  }
   &__time {
     &-wrap {
       margin-left: 1em;
