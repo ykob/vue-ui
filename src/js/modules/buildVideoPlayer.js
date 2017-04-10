@@ -72,6 +72,7 @@ export default function(id) {
         }
       },
       stop: function() {
+        this.time = 0;
         this.media.currentTime = 0;
         this.pause();
       },
