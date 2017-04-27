@@ -44,8 +44,7 @@ export default function(id) {
         this.volume = this.media.volume;
       });
       this.media.addEventListener('ended', () => {
-        this.media.currentTime = 0;
-        this.isPlaying = false;
+        this.stop();
       });
     },
     watch: {
