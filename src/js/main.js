@@ -1,7 +1,7 @@
 import initCommon from './init/common.js'
 import initIndex from './init/index.js'
-import initPhotoGallery from './init/photo_gallery.js'
-import initVideoPlayer from './init/video_player.js'
+import initPhotoGallery from './init/photoGallery.js'
+import initVideoPlayer from './init/videoPlayer.js'
 
 const { pathname } = window.location;
 
