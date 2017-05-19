@@ -3,18 +3,18 @@ import initIndex from './init/index.js'
 import initPhotoGallery from './init/photoGallery.js'
 import initVideoPlayer from './init/videoPlayer.js'
 
-const { pathname } = window.location;
+const pageId = document.getElementsByClassName('l-page')[0].getAttribute('data-page-id');
 
 const init = () => {
   initCommon();
-  switch (pathname.replace('index.html', '')) {
-    case '/':
+  switch (pageId) {
+    case 'index':
       initIndex();
       break;
-    case '/photo_gallery.html':
+    case 'photoGallery':
       initPhotoGallery();
       break;
-    case '/video_player.html':
+    case 'videoPlayer':
       initVideoPlayer();
       break;
     default:

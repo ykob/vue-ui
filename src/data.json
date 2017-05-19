@@ -6,6 +6,7 @@
   },
   "pages": {
     "index": {
+      "id": "index",
       "title": "",
       "keywords": "",
       "description": "",
@@ -14,6 +15,7 @@
       "ogpImg": "ogp.jpg"
     },
     "photoGallery": {
+      "id": "photoGallery",
       "title": "photo gallery",
       "keywords": "",
       "description": "",
@@ -22,6 +24,7 @@
       "ogpImg": "ogp.jpg"
     },
     "videoPlayer": {
+      "id": "videoPlayer",
       "title": "video player",
       "keywords": "",
       "description": "",
