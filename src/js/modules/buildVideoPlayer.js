@@ -32,9 +32,10 @@ export default function(id) {
         this.reLayoutSeekbar();
       }), 100);
       document.addEventListener('mousemove', (event) => {
+        event.preventDefault();
         this.moveSeekbar(event);
         this.moveVolumebar(event);
-      });
+      }addEventListener);
       document.addEventListener('mouseup', (event) => {
         this.releaseSeekbar(event);
         this.releaseVolumebar(event);
