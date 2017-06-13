@@ -30,6 +30,9 @@ export default function(items) {
       getText: function() {
         return this.items[this.currentNum].text;
       },
+      getHref: function() {
+        return this.items[this.currentNum].href;
+      },
       getMoveX: function() {
         if (this.isDrag) {
           return 'translateX(' + (this.moveX - this.touchX) + 'px)';

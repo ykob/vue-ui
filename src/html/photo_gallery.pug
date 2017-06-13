@@ -41,6 +41,9 @@ block content
           |{{ items.length }}
     .p-photo-gallery__body
       .p-photo-gallery__body-head
-        |{{ getTitle }}
+        a(
+          :href="getHref"
+          )
+          |{{ getTitle }}
       .p-photo-gallery__body-text
         |{{ getText }}
