@@ -1,4 +1,4 @@
-import buildVideoPlayer from '../modules/buildVideoPlayer.js';
+const buildVideoPlayer = require('../modules/buildVideoPlayer').default;
 
 export default function() {
   const videoPlayer = buildVideoPlayer('video-player');

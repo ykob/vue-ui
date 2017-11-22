@@ -1,4 +1,4 @@
-import buildPhotoGallery from '../modules/buildPhotoGallery.js';
+const buildPhotoGallery = require('../modules/buildPhotoGallery').default;
 
 export default function() {
   const gallery = buildPhotoGallery([

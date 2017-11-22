@@ -1,3 +1,5 @@
+const Vue = require('vue/dist/vue.min');
+
 export default function(items) {
   return new Vue({
     el: '#photo-gallery',

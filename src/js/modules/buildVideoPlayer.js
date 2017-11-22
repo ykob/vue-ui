@@ -1,5 +1,6 @@
-import debounce from 'js-util/debounce';
-import MathEx from 'js-util/MathEx';
+const Vue = require('vue/dist/vue.min');
+const debounce = require('js-util/debounce');
+const MathEx = require('js-util/MathEx');
 
 export default function(id) {
   return new Vue({
