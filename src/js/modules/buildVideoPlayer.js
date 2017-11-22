@@ -35,7 +35,7 @@ export default function(id) {
         event.preventDefault();
         this.moveSeekbar(event);
         this.moveVolumebar(event);
-      }addEventListener);
+      });
       document.addEventListener('mouseup', (event) => {
         this.releaseSeekbar(event);
         this.releaseVolumebar(event);

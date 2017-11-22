@@ -1,7 +1,7 @@
 // 設定ファイル
 // 対象パスやオプションを指定
 
-const DOMAIN = module.exports.DOMAIN = 'http://www.tplh.net';
+const DOMAIN = module.exports.DOMAIN = 'http://www.xxx.com';
 const DIR = module.exports.DIR =  {
   PATH: '',
   SRC: 'src',
@@ -57,9 +57,7 @@ module.exports.scripts = {
 
 module.exports.vendorScripts = {
   src: [
-    `./${DIR.SRC}/js/vendor/jquery.js`,
-    `./${DIR.SRC}/js/vendor/jquery.easing.js`,
-    `./${DIR.SRC}/js/vendor/vue.js`,
+    `./${DIR.SRC}/js/vendor/*.js`,
   ],
   concat: 'vendor.js',
   dest: `./${DIR.DEST}${DIR.PATH}/js/`
@@ -72,10 +70,12 @@ module.exports.pug = {
     `!${DIR.SRC}/**/_*.pug`
   ],
   dest: `${DIR.DEST}${DIR.PATH}`,
-  json: `${DIR.SRC}/data.json`,
   opts: {
     pretty: true
-  }
+  },
+  json: `${DIR.SRC}/data.json`,
+  domain: `${DOMAIN}`,
+  path: `${DIR.PATH}`,
 };
 
 module.exports.sass = {
@@ -87,9 +87,9 @@ module.exports.sass = {
   dest: `${DIR.DEST}${DIR.PATH}/css`,
   browsers: [
     'last 2 versions',
-    'ie >= 9',
+    'ie >= 11',
     'Android >= 4',
-    'ios_saf >= 8',
+    'ios_saf >= 9',
   ]
 };
 
@@ -134,7 +134,6 @@ module.exports.uglify = {
   ],
   dest: `${DIR.BUILD}${DIR.PATH}/js`,
   opts: {
-    preserveComments: 'some'
   }
 };
 
@@ -153,9 +152,10 @@ module.exports.copy = {
   build: {
     src: [
       `${DIR.DEST}${DIR.PATH}/img/**/*.ico`,
+      `${DIR.DEST}${DIR.PATH}/img/**/no_compress/*.*`,
       `${DIR.DEST}${DIR.PATH}/font/**/*.*`,
     ],
-    dest: `${DIR.BUILD}${DIR.PATH}`,
+    dest: `${DIR.BUILD}`,
     opts: {
       base: `${DIR.DEST}${DIR.PATH}`
     }
@@ -174,21 +174,34 @@ module.exports.copy = {
 
 module.exports.imagemin = {
   src: [
-    `${DIR.DEST}${DIR.PATH}/**/*.{jpg,jpeg,png,gif,svg}`
+    `${DIR.DEST}${DIR.PATH}/**/*.{jpg,jpeg,png,gif,svg}`,
+    `!${DIR.DEST}${DIR.PATH}/img/**/no_compress/*.*`,
   ],
-  dest: `${DIR.BUILD}${DIR.PATH}/img`
+  dest: `${DIR.BUILD}${DIR.PATH}/img`,
+  opts: {
+    pngquant: {
+      quality: 80,
+      speed: 1,
+    },
+    mozjpeg: {
+      quality: 80,
+      progressive: true,
+    },
+    svgo: {
+      plugins: [
+        { removeViewBox: false },
+        { cleanupIDs: true },
+      ]
+    },
+  }
 };
 
 module.exports.clean = {
   dest: {
-    path: [
-      `${DIR.DEST}${DIR.PATH}/**/*.html`,
-      `${DIR.DEST}${DIR.PATH}/css/`,
-      `${DIR.DEST}${DIR.PATH}/js/`
-    ]
+    path: [`${DIR.DEST}`]
   },
   build: {
-    path: [`${DIR.BUILD}${DIR.PATH}`]
+    path: [`${DIR.BUILD}`]
   }
 };
 
@@ -199,6 +212,7 @@ module.exports.sitemap = {
   ],
   opts: {
     siteUrl: DOMAIN,
+    fileName: 'sitemap-static.xml',
     mappings: [
       {
         pages: [`index.html`],
