@@ -2,7 +2,7 @@
   &-t {
     @for $i from 1 through 20 {
       &-#{$i * 5} {
-        @include l-pc-all {
+        @include l-pc {
           margin-top: ($i * 5) * 1px;
         }
         @include l-tablet-and-mobile {
@@ -14,7 +14,7 @@
   &-b {
     @for $i from 1 through 20 {
       &-#{$i * 5} {
-        @include l-pc-all {
+        @include l-pc {
           margin-bottom: ($i * 5) * 1px;
         }
         @include l-tablet-and-mobile {
@@ -26,7 +26,7 @@
   &-r {
     @for $i from 1 through 20 {
       &-#{$i * 5} {
-        @include l-pc-all {
+        @include l-pc {
           margin-right: ($i * 5) * 1px;
         }
         @include l-tablet-and-mobile {
@@ -38,7 +38,7 @@
   &-l {
     @for $i from 1 through 20 {
       &-#{$i * 5} {
-        @include l-pc-all {
+        @include l-pc {
           margin-left: ($i * 5) * 1px;
         }
         @include l-tablet-and-mobile {

@@ -92,7 +92,7 @@
       width: 1px;
       height: 12px;
       background-color: #999;
-      @include l-pc-all {
+      @include l-pc {
         margin: 0 10px;
       }
       @include l-tablet {
