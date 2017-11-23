@@ -13,9 +13,11 @@ html(lang="ja")
   body
     .l-page(data-page-id=page.id)
       include ./_gh.pug
+      block contentFixedBefore
       .l-contents
         h1.c-content-header
           |#{pageTitle}
         block content
       include ./_gf.pug
+      block contentFixedAfter
     script(src="/js/main.js")

@@ -31,6 +31,15 @@
       "path": "/video_player.html",
       "ogpDescription": "",
       "ogpImg": "ogp.jpg"
+    },
+    "globalNaviSp": {
+      "id": "globalNaviSp",
+      "title": "global navi sp",
+      "keywords": "",
+      "description": "",
+      "path": "/global_navi_sp.html",
+      "ogpDescription": "",
+      "ogpImg": "ogp.jpg"
     }
   }
 }

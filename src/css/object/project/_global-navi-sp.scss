@@ -1,0 +1,115 @@
+.p-global-navi-sp {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 900;
+  @include fontSizeAll(13, 13, 13);
+  letter-spacing: 0.1em;
+  transform: translate3d(0, 0, 0);
+  &__items {
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    padding-top: 65px;
+    background-color: #fff;
+  }
+  &__item {
+    display: block;
+    border-bottom: 1px solid #eee;
+    color: $color-text-basic;
+    text-decoration: none;
+    text-transform: uppercase;
+    &:first-child {
+      border-top: 1px solid #eee;
+    }
+    &-parent {
+      cursor: pointer;
+      display: block;
+      position: relative;
+      padding: 18px 20px;
+      color: $color-text-basic;
+      text-decoration: none;
+      &--disable {
+        opacity: 0.5;
+      }
+    }
+    &-children {
+      height: 0;
+      overflow: hidden;
+    }
+    &-child {
+      display: block;
+      padding: 18px 20px;
+      border-top: 1px solid #eee;
+      color: $color-text-basic;
+      text-decoration: none;
+    }
+  }
+  &__toggle-icon {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 50%; right: 20px;
+    margin-top: -7.5px;
+    &:before, &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      background-color: #333;
+    }
+    &:before {
+      width: 15px;
+      height: 1px;
+      top: 7px; left: 0;
+    }
+    &:after {
+      width: 1px;
+      height: 15px;
+      top: 0; left: 7px;
+    }
+  }
+
+  //
+  // interaction
+  //
+  pointer-events: none;
+  &.is-opened {
+    pointer-events: auto;
+  }
+  &__items {
+    opacity: 0;
+    transition-duration: 0.4s;
+    &.is-opened {
+      opacity: 1;
+    }
+  }
+  &__item {
+    &-parent {
+      &.is-current {
+        color: $color-strong;
+      }
+    }
+    &-children {
+      transition-duration: 0.4s;
+    }
+    &-child {
+      &.is-current {
+        color: $color-strong;
+      }
+    }
+  }
+  &__toggle-icon {
+    &:before, &:after {
+      transition-duration: 0.4s;
+    }
+    &.is-opened {
+      &:before {
+        transform: scaleY(0) rotate(90deg);
+      }
+      &:after {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

@@ -1,0 +1,215 @@
+$sizeOutPc: 42px;
+$sizeOutSp: 42px;
+$sizeInPc: 24px;
+$sizeInSp: 24px;
+$lineWidthPc: 2px;
+$lineWidthSp: 2px;
+
+.p-hamburger {
+  cursor: pointer;
+  position: fixed;
+  top: 12px; right: 18px;
+  z-index: 10000;
+  @include l-more-than-mobile {
+    width: $sizeOutPc;
+    height: $sizeOutPc;
+  }
+  @include l-mobile {
+    width: $sizeOutSp;
+    height: $sizeOutSp;
+  }
+  &__line {
+    overflow: hidden;
+    position: absolute;
+    @include l-more-than-mobile {
+      width: $sizeInPc;
+      height: $lineWidthPc;
+    }
+    @include l-mobile {
+      width: $sizeInSp;
+      height: $lineWidthSp;
+    }
+    &-in {
+      position: absolute;
+      top: 0; left: 0;
+      @include l-more-than-mobile {
+        width: $sizeInPc * 3;
+        height: $lineWidthPc;
+      }
+      @include l-mobile {
+        width: $sizeInSp * 3;
+        height: $lineWidthSp;
+      }
+      &:before, &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        background-color: #333;
+        @include l-more-than-mobile {
+          width: $sizeInPc;
+          height: $lineWidthPc;
+        }
+        @include l-mobile {
+          width: $sizeInSp;
+          height: $lineWidthSp;
+        }
+      }
+      &:before {
+        @include l-more-than-mobile {
+          left: $sizeInPc * -2;
+        }
+        @include l-mobile {
+          left: $sizeInSp * -2;
+        }
+      }
+      &:after {
+        left: 0;
+      }
+    }
+    &--01, &--02, &--03, &--cross01, &--cross02 {
+      @include l-more-than-mobile {
+        left: ($sizeOutPc - $sizeInPc) / 2;
+      }
+      @include l-mobile {
+        left: ($sizeOutSp - $sizeInSp) / 2;
+      }
+    }
+    &--01 {
+      @include l-more-than-mobile {
+        top: $sizeOutPc * 0.5 - $lineWidthPc - 8;
+      }
+      @include l-mobile {
+        top: $sizeOutSp * 0.5 - $lineWidthSp - 6;
+      }
+    }
+    &--02, &--cross01, &--cross02 {
+      @include l-more-than-mobile {
+        top: $sizeOutPc * 0.5 - $lineWidthPc;
+      }
+      @include l-mobile {
+        top: $sizeOutSp * 0.5 - $lineWidthSp;
+      }
+    }
+    &--03 {
+      @include l-more-than-mobile {
+        top: $sizeOutPc * 0.5 - $lineWidthPc + 8;
+      }
+      @include l-mobile {
+        top: $sizeOutSp * 0.5 - $lineWidthSp + 6;
+      }
+    }
+    &--cross01 {
+      transform: rotate(45deg);
+    }
+    &--cross02 {
+      transform: rotate(-45deg);
+    }
+  }
+  //
+// Interaction
+//
+&__line {
+  transition-duration: 0.6s;
+  transition-timing-function: $easeOutExpo;
+  &-in {
+    transition-duration: 0.6s;
+    transition-timing-function: $easeOutExpo;
+    &:before, &:after {
+      transition-timing-function: $easeOutExpo;
+      transition-property: transform;
+    }
+    &--cross01, &--cross02 {
+      transform: translateX(-33.3%);
+    }
+    &--01 {
+      transition-delay: 0.2s;
+    }
+    &--02 {
+      transition-delay: 0.25s;
+      &:before, &:after {
+        transition-delay: 0.05s;
+      }
+    }
+    &--03 {
+      transition-delay: 0.3s;
+      &:before, &:after {
+        transition-delay: 0.1s;
+      }
+    }
+    &--cross01 {
+      transition-delay: 0.0s;
+    }
+    &--cross02 {
+      transition-delay: 0.05s;
+      &:before, &:after {
+        transition-delay: 0.1s;
+      }
+    }
+  }
+}
+&.is-opened-navi & {
+  &__line {
+    &-in {
+      &:before, &:after {
+      }
+      &--01, &--02, &--03 {
+        transform: translateX(33.3%);
+      }
+      &--cross01, &--cross02 {
+        transform: translateX(0);
+      }
+      &--01 {
+        transition-delay: 0s;
+      }
+      &--02 {
+        transition-delay: 0.05s;
+      }
+      &--03 {
+        transition-delay: 0.1s;
+      }
+      &--cross01 {
+        transition-delay: 0.25s;
+      }
+      &--cross02 {
+        transition-delay: 0.3s;
+      }
+    }
+  }
+}
+&:hover & {
+  &__line {
+    &-in {
+      &:before, &:after {
+        transform: translateX(200%);
+      }
+      &--01, &--02, &--03 {
+        &:before, &:after {
+          transition-duration: 1s;
+        }
+      }
+      &--cross01, &--cross02 {
+        &:before, &:after {
+          transition-duration: 0s;
+        }
+      }
+    }
+  }
+}
+&.is-opened-navi:hover & {
+  &__line {
+    &-in {
+      &--cross01, &--cross02 {
+        &:before, &:after {
+          transition-duration: 1s;
+        }
+      }
+      &--01, &--02, &--03 {
+        &:before, &:after {
+          transition-duration: 0s;
+        }
+      }
+    }
+  }
+}
+}

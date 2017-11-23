@@ -6,6 +6,7 @@ const init = () => {
     case 'index': require('./init/index').default(); break;
     case 'photoGallery': require('./init/photoGallery').default(); break;
     case 'videoPlayer': require('./init/videoPlayer').default(); break;
+    case 'globalNaviSp': require('./init/globalNaviSp').default(); break;
     default:
   }
 }

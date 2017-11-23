@@ -1,0 +1,60 @@
+extends ./_layout/_page.pug
+
+block vars
+  -
+    var page = data.pages.globalNaviSp;
+
+mixin globalNaviSpItem(parent, id)
+  .p-global-navi-sp__item(
+    :class = `{ "is-opened" : isOpenedChildren["${id}"] }`
+    )
+    .p-global-navi-sp__item-parent(
+      @click = `toggleChildren(event, "${id}")`
+      )
+      |#{parent}
+    .p-global-navi-sp__item-children(
+      data-key = id
+      )
+      .p-global-navi-sp__item-children-in
+        block
+
+block content
+
+block contentFixedAfter
+  #global-navi-sp
+    .p-hamburger(
+      :class = '{ "is-opened-navi" : isOpenedNavi }'
+      @click = 'toggleNavi',
+      )
+      .p-hamburger__line.p-hamburger__line--01
+        .p-hamburger__line-in.p-hamburger__line-in--01
+      .p-hamburger__line.p-hamburger__line--02
+        .p-hamburger__line-in.p-hamburger__line-in--02
+      .p-hamburger__line.p-hamburger__line--03
+        .p-hamburger__line-in.p-hamburger__line-in--03
+      .p-hamburger__line.p-hamburger__line--cross01
+        .p-hamburger__line-in.p-hamburger__line-in--cross01
+      .p-hamburger__line.p-hamburger__line--cross02
+        .p-hamburger__line-in.p-hamburger__line-in--cross02
+
+    .p-global-navi-sp(
+      :class = '{ "is-opened" : isOpenedNavi }'
+      )
+      .p-global-navi-sp__items(
+        :class = '{ "is-opened" : isOpenedNavi }'
+        )
+        +globalNaviSpItem('Home', 'home')
+          .p-global-navi-sp__item-child
+            |子要素が入ります。
+        +globalNaviSpItem('About Us', 'aboutUs')
+          .p-global-navi-sp__item-child
+            |子要素が入ります。
+        +globalNaviSpItem('Products', 'products')
+          .p-global-navi-sp__item-child
+            |子要素が入ります。
+        +globalNaviSpItem('Case Study', 'caseStudy')
+          .p-global-navi-sp__item-child
+            |子要素が入ります。
+        +globalNaviSpItem('Contact', 'contact')
+          .p-global-navi-sp__item-child
+            |子要素が入ります。
