@@ -13,9 +13,13 @@ mixin globalNaviSpItem(parent, id)
       )
       |#{parent}
     .p-global-navi-sp__item-children(
-      data-key = id
+      data-key = id,
+      ref = ``,
+      @transitionend = 'updatePerfectScrollbar()'
       )
-      .p-global-navi-sp__item-children-in
+      .p-global-navi-sp__item-children-in(
+        ref = ``
+        )
         block
 
 block content

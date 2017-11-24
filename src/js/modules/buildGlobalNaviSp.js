@@ -10,7 +10,6 @@ export default function() {
       ps: null,
       children: {},
       currentId: 0,
-      currentPath: '',
       isOpenedNavi: false,
       isOpenedChildren: {},
       fixBody: new FixBody(),
@@ -18,7 +17,6 @@ export default function() {
     mounted: function() {
       this.items = this.$el.querySelector('.p-global-navi-sp__items');
       this.ps = new PerfectScrollbar(this.items);
-      this.currentPath = location.pathname;
 
       const children = this.$el.querySelectorAll('.p-global-navi-sp__item-children');
       for (var i = 0; i < children.length; i++) {
@@ -28,9 +26,6 @@ export default function() {
           inner: children[i].querySelector('.p-global-navi-sp__item-children-in')
         };
         this.isOpenedChildren[key] = false;
-        children[i].addEventListener('transitionend', () => {
-          this.ps.update(this.items);
-        });
       }
     },
     methods: {
@@ -53,6 +48,9 @@ export default function() {
         } else {
           this.children[key].wrap.style.height = `0`;
         }
+      },
+      updatePerfectScrollbar: function() {
+        this.ps.update(this.items);
       },
     }
   })
