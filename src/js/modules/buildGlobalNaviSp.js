@@ -3,6 +3,12 @@ const PerfectScrollbar = require('perfect-scrollbar');
 const FixBody = require('js-util/FixBody');
 
 export default function() {
+  const elmItem = document.querySelectorAll('.p-global-navi-sp__item');
+  const isOpenedChildren = {};
+  for (var i = 0; i < elmItem.length; i++) {
+    isOpenedChildren[elmItem[i].dataset.key] = false
+  }
+
   return new Vue({
     el: '#global-navi-sp',
     data: {
@@ -11,22 +17,12 @@ export default function() {
       children: {},
       currentId: 0,
       isOpenedNavi: false,
-      isOpenedChildren: {},
+      isOpenedChildren: isOpenedChildren,
       fixBody: new FixBody(),
     },
     mounted: function() {
       this.items = this.$el.querySelector('.p-global-navi-sp__items');
       this.ps = new PerfectScrollbar(this.items);
-
-      const elmItem = this.$el.querySelectorAll('.p-global-navi-sp__item');
-      for (var i = 0; i < elmItem.length; i++) {
-        const key = elmItem[i].dataset.key;
-        this.children[key] = {
-          wrap: elmItem[i].querySelector('.p-global-navi-sp__item-children'),
-          inner: elmItem[i].querySelector('.p-global-navi-sp__item-children-in')
-        };
-        this.isOpenedChildren[key] = false;
-      }
     },
     methods: {
       toggleNavi: function() {
@@ -42,11 +38,13 @@ export default function() {
         this.fixBody.cancel();
       },
       toggleChildren: function(key) {
+        const keyChild = `child_${key}`;
+        const keyChildIn = `child_${key}_in`;
         this.isOpenedChildren[key] = !this.isOpenedChildren[key];
         if (this.isOpenedChildren[key]) {
-          this.children[key].wrap.style.height = `${this.children[key].inner.clientHeight}px`;
+          this.$refs[keyChild].style.height = `${this.$refs[keyChildIn].clientHeight}px`;
         } else {
-          this.children[key].wrap.style.height = `0`;
+          this.$refs[keyChild].style.height = `0`;
         }
       },
       updatePerfectScrollbar: function() {

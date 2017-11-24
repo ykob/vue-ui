@@ -14,9 +14,12 @@ mixin globalNaviSpItem(parent, id)
       )
       |#{parent}
     .p-global-navi-sp__item-children(
-      @transitionend = 'updatePerfectScrollbar()'
+      @transitionend = 'updatePerfectScrollbar()',
+      ref = `child_${id}`
       )
-      .p-global-navi-sp__item-children-in
+      .p-global-navi-sp__item-children-in(
+        ref = `child_${id}_in`
+        )
         block
 
 block content
