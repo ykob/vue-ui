@@ -1,0 +1,27 @@
+.ps {
+  &__rail {
+    &-x {
+      height: 2px;
+      bottom: 0;
+      position: absolute;
+    }
+    &-y {
+      width: 2px;
+      right: 0;
+      position: absolute;
+    }
+  }
+  &__thumb {
+    &-x {
+      height: 2px;
+      bottom: 0;
+      position: absolute;
+    }
+    &-y {
+      width: 2px;
+      position: absolute;
+      right: 0;
+      background-color: #ccc;
+    }
+  }
+}
