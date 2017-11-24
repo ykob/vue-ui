@@ -6,20 +6,17 @@ block vars
 
 mixin globalNaviSpItem(parent, id)
   .p-global-navi-sp__item(
+    data-key = id,
     :class = `{ "is-opened" : isOpenedChildren["${id}"] }`
     )
     .p-global-navi-sp__item-parent(
-      @click = `toggleChildren(event, "${id}")`
+      @click = `toggleChildren("${id}")`
       )
       |#{parent}
     .p-global-navi-sp__item-children(
-      data-key = id,
-      ref = ``,
       @transitionend = 'updatePerfectScrollbar()'
       )
-      .p-global-navi-sp__item-children-in(
-        ref = ``
-        )
+      .p-global-navi-sp__item-children-in
         block
 
 block content

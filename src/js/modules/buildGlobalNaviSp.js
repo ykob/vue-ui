@@ -18,12 +18,12 @@ export default function() {
       this.items = this.$el.querySelector('.p-global-navi-sp__items');
       this.ps = new PerfectScrollbar(this.items);
 
-      const children = this.$el.querySelectorAll('.p-global-navi-sp__item-children');
-      for (var i = 0; i < children.length; i++) {
-        const key = children[i].dataset.key;
+      const elmItem = this.$el.querySelectorAll('.p-global-navi-sp__item');
+      for (var i = 0; i < elmItem.length; i++) {
+        const key = elmItem[i].dataset.key;
         this.children[key] = {
-          wrap: children[i],
-          inner: children[i].querySelector('.p-global-navi-sp__item-children-in')
+          wrap: elmItem[i].querySelector('.p-global-navi-sp__item-children'),
+          inner: elmItem[i].querySelector('.p-global-navi-sp__item-children-in')
         };
         this.isOpenedChildren[key] = false;
       }
@@ -41,7 +41,7 @@ export default function() {
         this.isOpenedNavi = false;
         this.fixBody.cancel();
       },
-      toggleChildren: function(event, key) {
+      toggleChildren: function(key) {
         this.isOpenedChildren[key] = !this.isOpenedChildren[key];
         if (this.isOpenedChildren[key]) {
           this.children[key].wrap.style.height = `${this.children[key].inner.clientHeight}px`;
