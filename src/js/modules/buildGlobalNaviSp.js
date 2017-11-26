@@ -2,7 +2,7 @@ const Vue = require('vue/dist/vue.min');
 const PerfectScrollbar = require('perfect-scrollbar');
 const FixBody = require('js-util/FixBody');
 
-export default function() {
+export default function(query) {
   const elmItem = document.querySelectorAll('.p-global-navi-sp__item');
   const isOpenedChildren = {};
   for (var i = 0; i < elmItem.length; i++) {
@@ -10,7 +10,7 @@ export default function() {
   }
 
   return new Vue({
-    el: '#global-navi-sp',
+    el: query,
     data: {
       items: null,
       ps: null,

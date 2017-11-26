@@ -1,8 +1,8 @@
 const Vue = require('vue/dist/vue.min');
 
-export default function(items) {
+export default function(query, items) {
   return new Vue({
-    el: '#photo-gallery',
+    el: query,
     data: {
       items: items,
       currentNum: 0,

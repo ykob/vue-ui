@@ -2,9 +2,9 @@ const Vue = require('vue/dist/vue.min');
 const debounce = require('js-util/debounce');
 const MathEx = require('js-util/MathEx');
 
-export default function(id) {
+export default function(query) {
   return new Vue({
-    el: `#${id}`,
+    el: query,
     data: {
       media: null,
       seekbar: null,

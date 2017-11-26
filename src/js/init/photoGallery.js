@@ -1,7 +1,7 @@
 const buildPhotoGallery = require('../modules/buildPhotoGallery').default;
 
 export default function() {
-  const gallery = buildPhotoGallery([
+  const gallery = buildPhotoGallery('#vue-photo-gallery', [
     {
       src: 'https://c2.staticflickr.com/4/3828/12459462745_4ea815af62_b.jpg',
       href: 'https://www.flickr.com/photos/goodmorning_ek/12459462745/in/dateposted-public/',
