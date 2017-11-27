@@ -4,7 +4,14 @@ block vars
   -
     var page = data.pages.globalNaviSp;
 
-mixin globalNaviSpItem(parent, id)
+mixin globalNaviSpItemSingle(label, href)
+  a.p-global-navi-sp__item.p-global-navi-sp__item--single(
+    href = href,
+    target = attributes.target
+    )
+    |#{label}
+
+mixin globalNaviSpItemParent(parent, id)
   .p-global-navi-sp__item(
     data-key = id,
     :class = `{ "is-opened" : isOpenedChildren["${id}"] }`
@@ -21,6 +28,13 @@ mixin globalNaviSpItem(parent, id)
         ref = `child_${id}_in`
         )
         block
+
+mixin globalNaviSpItemChild(label, href)
+  a.p-global-navi-sp__item-child(
+    href = href,
+    target = attributes.target
+    )
+    |#{label}
 
 block content
   p
@@ -49,18 +63,19 @@ block contentFixedAfter
       .p-global-navi-sp__items(
         :class = '{ "is-opened" : isOpenedNavi }'
         )
-        +globalNaviSpItem('Home', 'home')
-          .p-global-navi-sp__item-child
-            |子要素が入ります。
-        +globalNaviSpItem('About Us', 'aboutUs')
-          .p-global-navi-sp__item-child
-            |子要素が入ります。
-        +globalNaviSpItem('Products', 'products')
-          .p-global-navi-sp__item-child
-            |子要素が入ります。
-        +globalNaviSpItem('Case Study', 'caseStudy')
-          .p-global-navi-sp__item-child
-            |子要素が入ります。
-        +globalNaviSpItem('Contact', 'contact')
-          .p-global-navi-sp__item-child
-            |子要素が入ります。
+        +globalNaviSpItemSingle('Home', '#')
+        +globalNaviSpItemParent('About Us', 'aboutUs')
+          +globalNaviSpItemChild('About Us', '#')
+          +globalNaviSpItemChild('Outline', '#')
+          +globalNaviSpItemChild('History', '#')
+        +globalNaviSpItemParent('Products', 'products')
+          +globalNaviSpItemChild('Category A', '#')
+          +globalNaviSpItemChild('Category B', '#')
+          +globalNaviSpItemChild('Category C', '#')
+          +globalNaviSpItemChild('Category D', '#')
+        +globalNaviSpItemParent('Case Study', 'caseStudy')
+          +globalNaviSpItemChild('Category A', '#')
+          +globalNaviSpItemChild('Category B', '#')
+          +globalNaviSpItemChild('Category C', '#')
+          +globalNaviSpItemChild('Category D', '#')
+        +globalNaviSpItemSingle('Contact', '#')
