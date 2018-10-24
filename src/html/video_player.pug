@@ -6,7 +6,9 @@ block vars
 
 block content
   .p-video-player#vue-video-player
-    video.p-video-player__media
+    video.p-video-player__media(
+      playsinline
+      )
       source(
         src = 'http://www.tplh.net/file/sample.mp4'
         )
