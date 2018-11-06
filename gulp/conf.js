@@ -3,7 +3,9 @@
 
 const DOMAIN = module.exports.DOMAIN = 'http://www.xxx.com';
 const DIR = module.exports.DIR =  {
+   // 語尾にスラッシュはつけない
   PATH: '',
+  CMS: '/cms/wp-content/themes/xxx.com',
   SRC: 'src',
   DEST: 'dst',
   BUILD: 'build'
@@ -11,9 +13,8 @@ const DIR = module.exports.DIR =  {
 
 module.exports.serve = {
   dest: {
-    //tunnel: 'test',
     notify: false,
-    startPath: DIR.PATH,
+    startPath: `${DIR.PATH}/`,
     ghostMode: false,
     server: {
       baseDir: DIR.DEST,
@@ -24,7 +25,6 @@ module.exports.serve = {
     }
   },
   build: {
-    //tunnel: 'test',
     notify: false,
     startPath: DIR.PATH,
     ghostMode: false,
@@ -39,20 +39,33 @@ module.exports.serve = {
 };
 
 module.exports.scripts = {
-  common: '',
-  entryFiles: [
-    `./${DIR.SRC}/js/main.js`,
+  src: [
+    `./${DIR.SRC}/**/*.js`,
   ],
-  browserifyOpts: {
-    transform: [
-      ['babelify', {
-        babelrc: false,
-        presets: ['es2015']
-      }],
-      'envify'
-    ]
+  dest: {
+    development: `./${DIR.DEST}/js/`,
+    production: `./${DIR.BUILD}/js/`,
   },
-  dest: `${DIR.DEST}${DIR.PATH}/js`
+  webpack: {
+    entry: `./${DIR.SRC}/js/main.js`,
+    output: {
+      filename: `main.js`
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          },
+        }
+      ]
+    }
+  },
 };
 
 module.exports.vendorScripts = {
@@ -88,8 +101,8 @@ module.exports.sass = {
   browsers: [
     'last 2 versions',
     'ie >= 11',
-    'Android >= 4',
-    'ios_saf >= 9',
+    'Android >= 5',
+    'ios_saf >= 10',
   ]
 };
 
@@ -99,50 +112,23 @@ module.exports.replace = {
       `${DIR.DEST}${DIR.PATH}/**/*.html`
     ],
     dest: `${DIR.BUILD}${DIR.PATH}`,
-    path: `${DIR.PATH}`
-  }
-};
-
-module.exports.sprite = {
-  src: [
-    `${DIR.SRC}/img/sprite/**/*.png`
-  ],
-  dest: {
-    img: `${DIR.DEST}${DIR.PATH}/img/common`,
-    css: `${DIR.SRC}/css/foundation`
-  },
-  opts: {
-    imgName: 'sprite.png',
-    cssName: '_sprite.scss',
-    imgPath: '../img/common/sprite.png',
-    padding: 10,
-    cssOpts: {
-      functions: false
-    }
   }
 };
 
 module.exports.cleanCss = {
   src: `${DIR.DEST}${DIR.PATH}/css/main.css`,
-  dest: `${DIR.BUILD}${DIR.PATH}/css`
-};
-
-module.exports.uglify = {
-  src: [
-    `./${DIR.DEST}${DIR.PATH}/js/vendor.js`,
-    `./${DIR.DEST}${DIR.PATH}/js/main.js`,
-  ],
-  dest: `${DIR.BUILD}${DIR.PATH}/js`,
-  opts: {
-  }
+  dest: {
+    static: `${DIR.BUILD}${DIR.PATH}/css`,
+    cms: `${DIR.BUILD}${DIR.PATH}${DIR.CMS}`,
+  },
 };
 
 module.exports.copy = {
   dest: {
     src: [
       `${DIR.SRC}/img/**/*.*`,
-      `!${DIR.SRC}/img/sprite/*.*`,
       `${DIR.SRC}/font/**/*.*`,
+      `${DIR.SRC}/json/**/*.*`,
     ],
     dest: `${DIR.DEST}${DIR.PATH}`,
     opts: {
@@ -154,20 +140,36 @@ module.exports.copy = {
       `${DIR.DEST}${DIR.PATH}/img/**/*.ico`,
       `${DIR.DEST}${DIR.PATH}/img/**/no_compress/*.*`,
       `${DIR.DEST}${DIR.PATH}/font/**/*.*`,
+      `${DIR.DEST}${DIR.PATH}/json/**/*.*`,
     ],
-    dest: `${DIR.BUILD}`,
+    dest: {
+      static: `${DIR.BUILD}${DIR.PATH}`,
+      cms: `${DIR.BUILD}${DIR.PATH}${DIR.CMS}/assets`,
+    },
     opts: {
-      base: `${DIR.DEST}${DIR.PATH}`
+      base: `${DIR.DEST}`
     }
   },
   php: {
     src: [
       `${DIR.SRC}/html/**/*.php`,
-      `${DIR.SRC}/html/cms/**/*.*`,
     ],
-    dest: `${DIR.BUILD}${DIR.PATH}`,
+    dest: {
+      static: `${DIR.BUILD}${DIR.PATH}`,
+      cms: `${DIR.BUILD}${DIR.PATH}${DIR.CMS}/assets/php`,
+    },
     opts: {
       base: `${DIR.SRC}/html/`
+    }
+  },
+  cms: {
+    src: [
+      `${DIR.SRC}/wp-theme/**/*.php`,
+      `${DIR.SRC}/wp-theme/**/screenshot.png`,
+    ],
+    dest: `${DIR.BUILD}${DIR.PATH}${DIR.CMS}`,
+    opts: {
+      base: `${DIR.SRC}/wp-theme/`
     }
   }
 };
@@ -177,7 +179,10 @@ module.exports.imagemin = {
     `${DIR.DEST}${DIR.PATH}/**/*.{jpg,jpeg,png,gif,svg}`,
     `!${DIR.DEST}${DIR.PATH}/img/**/no_compress/*.*`,
   ],
-  dest: `${DIR.BUILD}${DIR.PATH}/img`,
+  dest: {
+    static: `${DIR.BUILD}${DIR.PATH}/img`,
+    cms: `${DIR.BUILD}${DIR.PATH}${DIR.CMS}/assets/img`,
+  },
   opts: {
     pngquant: {
       quality: 80,
