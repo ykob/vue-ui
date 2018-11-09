@@ -62,6 +62,10 @@ module.exports.scripts = {
               presets: ['@babel/preset-env']
             }
           },
+        },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
         }
       ]
     }
