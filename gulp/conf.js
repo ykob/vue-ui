@@ -68,7 +68,12 @@ module.exports.scripts = {
           loader: 'vue-loader'
         }
       ]
-    }
+    },
+    resolve: {
+      alias: {
+        vue: 'vue/dist/vue.common.js'
+      }
+    },
   },
 };
 
