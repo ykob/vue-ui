@@ -38,6 +38,7 @@ module.exports.serve = {
   }
 };
 
+const { VueLoaderPlugin } = require('vue-loader');
 module.exports.scripts = {
   src: [
     `./${DIR.SRC}/**/*.js`,
@@ -54,6 +55,26 @@ module.exports.scripts = {
     module: {
       rules: [
         {
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        },
+        {
+          test: /\.pug$/,
+          loader: 'pug-plain-loader'
+        },
+        {
+          test: /\.scss/,
+          use: [
+            'vue-style-loader',
+            'css-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+              }
+            }
+          ]
+        },
+        {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
@@ -62,10 +83,6 @@ module.exports.scripts = {
               presets: ['@babel/preset-env']
             }
           },
-        },
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader'
         }
       ]
     },
@@ -74,6 +91,9 @@ module.exports.scripts = {
         vue: 'vue/dist/vue.common.js'
       }
     },
+    plugins: [
+      new VueLoaderPlugin()
+    ],
   },
 };
 
